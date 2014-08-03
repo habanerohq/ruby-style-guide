@@ -30,9 +30,9 @@
   puts 'bar'
 
   # non-standard
-  puts 'foobar'; # superfluous semicolon
+  puts 'foobar';
 
-  puts 'foo'; puts 'bar' # two expressions on the same line
+  puts 'foo'; puts 'bar'
   ```
 
 * <a name="single-line-classes"></a>
@@ -64,15 +64,14 @@
   # non-standard
   def too_much; something; something_else; end
 
-  # non-standard - notice that the first ; is required
+  # non-standard
   def no_braces_method; body end
 
-  # non-standard - notice that the second ; is optional
+  # non-standard
   def no_braces_method; body; end
 
-  # non-standard - valid syntax, but no ; makes it kind of hard to read
+  # non-standard
   def some_method() body end
-  ```
 
   # non-standard
   def no_op; end
@@ -87,7 +86,6 @@
   sum = 1 + 2
   a, b = 1, 2
   [1, 2, 3].each { |e| puts e }
-  class FooError < StandardError; end
   ```
 
   The only exception, regarding operators, is the exponent operator:
@@ -103,11 +101,11 @@
   Treat `{` and `}` consistently.
 
   ```Ruby
-  # standard - space after { and before }
-  { one: 1, two: 2 }
+  # standard
+  { :one => 1, :two => 2 }
 
-  # non-standard - no space after { and before }
-  {one: 1, two: 2}
+  # non-standard
+  {:one => 1, :two => 2}
   ```
 
   As far as embedded expressions go, omit spaces.
@@ -143,7 +141,7 @@
 
 * <a name="empty-lines-between-methods"></a>
   Use empty lines between method definitions and also to break up a method
-  into logical paragraphs internally.
+  into logical paragraphs.
 <sup>[[link](#empty-lines-between-methods)]</sup>
 
   ```Ruby
@@ -162,14 +160,11 @@
 
 * <a name="indent-when-to-case"></a>
   Indent `when` as deep as `case`. Space out the when clauses as separate paragraphs.
-
-  Note that the use of a case statement could point to a problem in your design.
 <sup>[[link](#indent-when-to-case)]</sup>
 
   ```Ruby
   # standard
   case
-
   when song.name == 'Misty'
     puts 'Not again!'
 
@@ -197,13 +192,7 @@
   ```
 
 * <a name="indent-conditional-assignment"></a>
-  When assigning the result of a conditional expression to a variable,
-  do not try to lay out the code to make it "easier to read". Here, spending time
-  on making the code "look good" is a sign that you have a design problem.
-
-  Using this idiom suggests you are writing a procedural script rather than
-  thinking of your problem functionally, so be wary of code that does this. The conditional
-  should be extracted as its own method.
+  When assigning the result of a conditional expression to a variable, use simple indentation.
 <sup>[[link](#indent-conditional-assignment)]</sup>
 
   ```Ruby
@@ -222,7 +211,7 @@
       calc_something_else
     end
 
-  # non-standard - if you want to do this, you should have extracted a method by now
+  # non-standard
   result = if some_cond
              calc_something
            else
@@ -232,8 +221,7 @@
   ```
 
 * <a name="no-trailing-params-comma"></a>
-  Avoid comma after the last parameter in a method call, especially when the
-  parameters are not on separate lines.
+  Avoid comma after the last parameter in a method call.
 <sup>[[link](#no-trailing-params-comma)]</sup>
 
   ```Ruby
@@ -253,7 +241,7 @@
   ```
 
 * <a name="spaces-around-equals"></a>
-  Avoid spaces around the `=` operator when assigning default values to method
+  Do not use spaces around the `=` operator when assigning default values to method
   parameters:
 <sup>[[link](#spaces-around-equals)]</sup>
 
@@ -284,7 +272,7 @@
   ```
 
 * <a name="consistent-multi-line-chains"></a>
-    Avoid multi-line method chaining styles. You should have extracted some methods by then
+    Avoid multi-line method chaining styles.
 <sup>[[link](#consistent-multi-line-chains)]</sup>
 
     ```Ruby
@@ -297,8 +285,7 @@
     ```
 
 * <a name="no-double-indent"></a>
-    Single-indent the parameters of a method call if they span more than one
-    line. Fancier formatting is harder to maintain and method shouldn't be accepting more than 3 arguments anyway.
+    Use simple indentation for  the parameters of a method call if they span more than one line.
 <sup>[[link](#no-double-indent)]</sup>
 
   ```Ruby
@@ -368,10 +355,10 @@
 <sup>[[link](#underscores-in-numerics)]</sup>
 
   ```Ruby
-  # standard - much easier to parse for the human brain
+  # standard
   num = 1_000_000
 
-  # non-standard - how many 0s are there?
+  # non-standard
   num = 1000000
   ```
 
@@ -413,11 +400,7 @@
    ```
 
 * <a name="no-for-loops"></a>
-    Never use `for`, unless you know exactly why. Most of the time iterators
-    should be used instead. `for` is implemented in terms of `each` (so
-    you're adding a level of indirection), but with a twist - `for`
-    doesn't introduce a new scope (unlike `each`) and variables defined
-    in its block will be visible outside it.
+    Avoid using `for`. Use iterators.
 <sup>[[link](#no-for-loops)]</sup>
 
   ```Ruby
@@ -426,16 +409,15 @@
   # standard
   arr.each { |elem| puts elem }
 
-  # elem is not accessible outside each's block
   elem # => NameError: undefined local variable or method `elem'
-  ```
+
   # non-standard
   for elem in arr do
     puts elem
   end
 
-  # note that elem is accessible outside of the for loop
   elem # => 3
+  ```
 
 * <a name="no-then"></a>
   Never use `then` for multi-line `if/unless`.
@@ -475,7 +457,6 @@
 
 * <a name="ternary-operator"></a>
   Favor the ternary operator(`?:`) over `if/then/else/end` constructs.
-  It's more common and obviously more concise.
 <sup>[[link](#ternary-operator)]</sup>
 
   ```Ruby
@@ -509,7 +490,7 @@
 <sup>[[link](#no-semicolon-ifs)]</sup>
 
 * <a name="use-if-case-returns"></a>
-  Leverage the fact that `if` and `case` are expressions which return a
+  Use `if` and `case` as expressions which return a
   result.
 <sup>[[link](#use-if-case-returns)]</sup>
 
@@ -538,7 +519,7 @@
   # standard
   x = !something
 
-  # non-standard - braces are required because of op precedence
+  # non-standard
   x = (not something)
   ```
 
@@ -583,7 +564,7 @@
   ```
 
 * <a name="no-else-with-unless"></a>
-  Avoid `unless` with `else`. Trty rewriting these with the positive case first.
+  Avoid `unless` with `else`. Try rewriting these with the positive case first.
 <sup>[[link](#no-else-with-unless)]</sup>
 
   ```Ruby
@@ -649,10 +630,10 @@
 
   ```Ruby
   # standard
-  user.set(name: 'John', age: 45, permissions: { read: true })
+  user.set(:name => 'John', :age => 45, :permissions => { :read => true })
 
   # non-standard
-  user.set({ name: 'John', age: 45, permissions: { read: true } })
+  user.set({ :name => 'John', :age => 45, :permissions => { :read => true }})
   ```
 
 * <a name="no-dsl-decorating"></a>
@@ -663,10 +644,10 @@
   ```Ruby
   class Person < ActiveRecord::Base
     # standard
-    validates :name, presence: true, length: { within: 1..10 }
+    validates :name, :presence => true, :length => { :within => 1..10 }
 
     # non-standard
-    validates(:name, { presence: true, length: { within: 1..10 } })
+    validates(:name, :presence => true, :length => { :within => 1..10 })
   end
   ```
 
@@ -828,19 +809,11 @@
 
 * <a name="safe-assignment-in-condition"></a>
   Don't use the return value of `=` (an assignment) in conditional expressions
-  unless the assignment is wrapped in parentheses. This is a fairly popular
-  idiom among Rubyists that's sometimes referred to as *safe assignment in
-  condition*.
+  unless the assignment is wrapped in parentheses.
 <sup>[[link](#safe-assignment-in-condition)]</sup>
 
   ```Ruby
-  # non-standard (+ a warning)
-  if v = array.grep(/foo/)
-    do_something(v)
-    ...
-  end
-
-  # standard (MRI would still complain, but RuboCop won't)
+  # standard
   if (v = array.grep(/foo/))
     do_something(v)
     ...
@@ -849,6 +822,12 @@
   # standard
   v = array.grep(/foo/)
   if v
+    do_something(v)
+    ...
+  end
+
+  # non-standard
+  if v = array.grep(/foo/)
     do_something(v)
     ...
   end
@@ -930,19 +909,6 @@
   /something/ === some_string
   ```
 
-* <a name="no-cryptic-perlisms"></a>
-  Do not use Perl-style special variables (like `$:`, `$;`, etc. ).
-<sup>[[link](#no-cryptic-perlisms)]</sup>
-
-  ```Ruby
-  # standard
-  require 'English'
-  $LOAD_PATH.unshift File.dirname(__FILE__)
-
-  # non-standard
-  $:.unshift File.dirname(__FILE__)
-  ```
-
 * <a name="parens-no-spaces"></a>
   Never put a space between a method name and the opening parenthesis.
 <sup>[[link](#parens-no-spaces)]</sup>
@@ -959,13 +925,6 @@
   If the first argument to a method begins with an open parenthesis, always
   use parentheses in the method invocation. For example, write `f((3 + 2) + 1)`.
 <sup>[[link](#parens-as-args)]</sup>
-
-* <a name="global-stdout"></a>
-  Use `$stdout/$stderr/$stdin` instead of `STDOUT/STDERR/STDIN`.
-  `STDOUT/STDERR/STDIN` are constants, and while you can actually reassign
-  (possibly to redirect some stream) constants in Ruby, you'll get an
-  interpreter warning if you do so.
-<sup>[[link](#global-stdout)]</sup>
 
 * <a name="array-join"></a>
   Favor the use of `Array#join` over `Array#*` with
@@ -1257,32 +1216,16 @@
   end
   ```
 
-* <a name="reduce-blocks"></a>
-  When using `reduce` with short blocks, name the arguments `|a, e|`
-  (accumulator, element).
-<sup>[[link](#reduce-blocks)]</sup>
-
-* <a name="other-arg"></a>
-  When defining binary operators, name the argument `other`(`<<` and `[]` are
-  exceptions to the rule, since their semantics are different).
-<sup>[[link](#other-arg)]</sup>
-
-  ```Ruby
-  def +(other)
-    # body omitted
-  end
-  ```
-
 * <a name="map-fine-select-reduce-size"></a>
   Prefer `map` over `collect`, `detect` over `find`, `select` over `find_all`,
-  and `size` over `length`. Use `reduce` over `inject` if the result is a single
-  object, use `inject` if the result is an enumeration.
-<sup>[[link](#map-fine-select-reduce-size)]</sup>
+  and `size` over `length`.
+
+  Use `reduce` over `inject` if the result is a single
+  object. Use `inject` over `reduce` if the result is an enumeration.
+<sup>[[link](#map-fine-select-one-size)]</sup>
 
 * <a name="count-vs-size"></a>
-  Don't use `count` as a substitute for `size`. For `Enumerable` objects other
-  than `Array` it will iterate the entire collection in order to determine its
-  size.
+  Don't use `count` as a substitute for `size`.
 <sup>[[link](#count-vs-size)]</sup>
 
   ```Ruby
@@ -1294,10 +1237,7 @@
   ```
 
 * <a name="flat-map"></a>
-  Use `flat_map` instead of `map` + `flatten`.  This does not apply for arrays
-  with a depth greater than 2, i.e.  if `users.first.songs == ['a', ['b','c']]`,
-  then use `map + flatten` rather than `flat_map`.  `flat_map` flattens the
-  array by 1, whereas `flatten` flattens it all the way.
+  Use `flat_map` instead of `map` + `flatten`.
 <sup>[[link](#flat-map)]</sup>
 
   ```Ruby
@@ -1927,9 +1867,8 @@
   ```
 
 * <a name="percent-i"></a>
-  Prefer `%i` to the literal array syntax when you need an array of symbols
-  (and you don't need to maintain Ruby 1.9 compatibility). Apply this rule only
-  to arrays with two or more elements.
+  Prefer `%i` to the literal array syntax when you need an array of symbols.
+  Apply this rule only to arrays with two or more elements.
 <sup>[[link](#percent-i)]</sup>
 
   ```Ruby
@@ -1968,18 +1907,14 @@
 
   ```Ruby
   # standard
-  hash = { one: 1, two: 2, three: 3 }
+  hash = { :one => 1, :two => 2, :three => 3 }
 
   # non-standard
   hash = { 'one' => 1, 'two' => 2, 'three' => 3 }
   ```
 
-* <a name="no-mutable-keys"></a>
-  Avoid the use of mutable objects as hash keys.
-<sup>[[link](#no-mutable-keys)]</sup>
-
 * <a name="hash-literals"></a>
-  Use hash rockets consistently.
+  Use hash rockets instead of Ruby 1.9 symbol notation.
 <sup>[[link](#hash-literals)]</sup>
 
   ```Ruby
@@ -1989,6 +1924,10 @@
   # non-standard
   hash = { one: 1, two: 2, three: 3 }
   ```
+
+* <a name="no-mutable-keys"></a>
+  Avoid the use of mutable objects as hash keys.
+<sup>[[link](#no-mutable-keys)]</sup>
 
 * <a name="hash-key"></a>
   Use `Hash#key?` instead of `Hash#has_key?` and `Hash#value?` instead of
@@ -2285,7 +2224,7 @@
   %q{"Test's king!", John said.}
   ```
 
-## Misc (and stil important)
+## Misc (and still important)
 
 * <a name="functional-code"></a>
   Code in a functional way, avoiding mutation when that makes sense.
